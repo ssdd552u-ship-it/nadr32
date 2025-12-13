@@ -1,0 +1,238 @@
+<!-- footer.html -->
+<footer class="site-footer" dir="rtl" lang="ar">
+  <style>
+    :root {
+      --navy: #0b1530;
+      --navy-2: #0f2146;
+      --blue: #5bb6ff;
+      --blue-2: #9ed6ff;
+      --offwhite: #f5f5f0;
+      --text: #0b1530;
+      --muted: rgba(11, 21, 48, 0.66);
+      --card: rgba(255, 255, 255, 0.85);
+      --border: rgba(11, 21, 48, 0.10);
+      --shadow: 0 20px 60px rgba(11, 21, 48, 0.18);
+      --radius: 18px;
+      --radius-lg: 26px;
+      --transition: 0.25s ease;
+    }
+
+    .site-footer {
+      margin-top: 60px;
+      background: linear-gradient(135deg, rgba(11, 21, 48, 0.98), rgba(15, 33, 70, 0.98));
+      color: rgba(255, 255, 255, 0.92);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 34px 16px 18px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 18px;
+    }
+
+    .footer-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.20);
+    }
+
+    .footer-brand {
+      font-family: "Aref Ruqaa", serif;
+      font-weight: 700;
+      font-size: 26px;
+      margin: 0 0 6px;
+      color: #fff;
+    }
+
+    .footer-desc {
+      font-family: "Cairo", sans-serif;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.76);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .footer-title {
+      font-family: "Cairo", sans-serif;
+      font-weight: 800;
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+      color: rgba(158, 214, 255, 0.95);
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+      font-family: "Cairo", sans-serif;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.82);
+      text-decoration: none;
+      padding: 6px 8px;
+      border-radius: 12px;
+      transition: background var(--transition), transform var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+    }
+
+    .footer-links a:hover {
+      background: rgba(158, 214, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .newsletter {
+      display: grid;
+      gap: 10px;
+    }
+
+    .newsletter input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      outline: none;
+      font-family: "Cairo", sans-serif;
+    }
+
+    .newsletter input::placeholder { color: rgba(255,255,255,0.55); }
+
+    .newsletter button {
+      border: 1px solid rgba(158, 214, 255, 0.28);
+      background: linear-gradient(135deg, rgba(91, 182, 255, 0.92), rgba(158, 214, 255, 0.55));
+      color: #0b1530;
+      padding: 10px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-family: "Cairo", sans-serif;
+      font-weight: 900;
+      transition: transform var(--transition);
+    }
+
+    .newsletter button:hover { transform: translateY(-1px); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      max-width: 1200px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.72);
+      font-family: "Cairo", sans-serif;
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    .to-top {
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 14px;
+      transition: transform var(--transition), background var(--transition);
+      font-weight: 800;
+    }
+
+    .to-top:hover {
+      transform: translateY(-1px);
+      background: rgba(158, 214, 255, 0.12);
+    }
+
+    @media (max-width: 980px) {
+      .footer-wrap { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .footer-wrap { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="footer-wrap">
+    <div class="footer-card">
+      <h3 class="footer-brand">سايز</h3>
+      <p class="footer-desc">
+        متجر متخصص في البلوڤرات والبناطيل الأوفر سايز — خامات مريحة، قصّات واسعة، وإطلالة مرتّبة.
+      </p>
+    </div>
+
+    <div class="footer-card">
+      <h4 class="footer-title">روابط سريعة</h4>
+      <ul class="footer-links">
+        <li><a href="#featured">⭐ المنتجات المميّزة</a></li>
+        <li><a href="#categories">🧩 الأقسام</a></li>
+        <li><a href="#offers">💙 العروض</a></li>
+        <li><a href="#faq">❓ الأسئلة</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-card">
+      <h4 class="footer-title">خدمة العملاء</h4>
+      <ul class="footer-links">
+        <li><a href="#">📦 الشحن والتوصيل</a></li>
+        <li><a href="#">🔁 الاستبدال والاسترجاع</a></li>
+        <li><a href="#">🔒 الخصوصية</a></li>
+        <li><a href="#">📞 تواصل معنا</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-card">
+      <h4 class="footer-title">اشترك في النشرة</h4>
+      <div class="newsletter">
+        <input id="newsletterEmail" type="email" placeholder="اكتب بريدك الإلكتروني" autocomplete="email" />
+        <button type="button" id="newsletterBtn">اشتراك</button>
+        <p class="footer-desc" style="margin:0; font-size:12px;">
+          توصلك عروضنا وجديدنا أول بأول ✨
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>© <span id="yearNow"></span> سايز — جميع الحقوق محفوظة</div>
+    <button class="to-top" id="toTopBtn" type="button">⬆ للأعلى</button>
+  </div>
+
+  <script>
+    (function () {
+      const yearNow = document.getElementById("yearNow");
+      if (yearNow) yearNow.textContent = new Date().getFullYear();
+
+      const btn = document.getElementById("toTopBtn");
+      btn?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+      const newsletterBtn = document.getElementById("newsletterBtn");
+      const email = document.getElementById("newsletterEmail");
+
+      newsletterBtn?.addEventListener("click", () => {
+        const v = (email?.value || "").trim();
+
+        // تحقق بسيط (اربطه لاحقاً بباك اند Django)
+        const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        if (!ok) {
+          alert("اكتب بريد صحيح بالله ✅");
+          email?.focus();
+          return;
+        }
+
+        alert("تم الاشتراك بنجاح ✨");
+        if (email) email.value = "";
+      });
+    })();
+  </script>
+</footer>

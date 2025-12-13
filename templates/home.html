@@ -1,0 +1,544 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>سايز | بلوڤرات وبناطيل أوفر سايز</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap");
+
+    :root{
+      --navy:#0b1530;
+      --navy-2:#0f2146;
+      --blue:#5bb6ff;
+      --blue-2:#9ed6ff;
+      --offwhite:#f5f5f0;
+
+      --text:#0b1530;
+      --muted: rgba(11, 21, 48, .66);
+      --card: rgba(255,255,255,.86);
+      --border: rgba(11,21,48,.10);
+      --shadow: 0 20px 60px rgba(11,21,48,.16);
+      --radius: 18px;
+      --radius-lg: 28px;
+      --transition: .25s ease;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body{
+      margin:0;
+      font-family: "Cairo", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(1000px 600px at 10% 5%, rgba(91,182,255,.22), transparent 60%),
+        radial-gradient(900px 520px at 90% 20%, rgba(158,214,255,.20), transparent 55%),
+        linear-gradient(180deg, var(--offwhite), #ffffff);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .container{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 16px 0;
+    }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(11,21,48,.98), rgba(15,33,70,.96));
+      padding: 26px;
+      min-height: 360px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 25% 25%, rgba(158,214,255,.40), transparent 45%),
+        radial-gradient(circle at 80% 40%, rgba(91,182,255,.32), transparent 40%),
+        linear-gradient(120deg, rgba(255,255,255,.10), transparent 50%);
+      transform: rotate(12deg);
+      opacity: .9;
+      pointer-events: none;
+    }
+
+    .hero-content{
+      position: relative;
+      z-index: 2;
+    }
+
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.85);
+      font-weight: 700;
+      font-size: 13px;
+      width: fit-content;
+    }
+
+    .title{
+      margin: 12px 0 8px;
+      font-family: "Aref Ruqaa", serif;
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.15;
+      color:#fff;
+      letter-spacing: .4px;
+    }
+
+    .subtitle{
+      margin: 0 0 16px;
+      color: rgba(255,255,255,.78);
+      font-size: 15px;
+      line-height: 1.9;
+      max-width: 55ch;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn{
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      padding: 12px 14px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: transform var(--transition), background var(--transition), border var(--transition);
+      font-weight: 900;
+      font-family: "Cairo", sans-serif;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      text-decoration:none;
+      white-space: nowrap;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(158,214,255,.12);
+      border-color: rgba(158,214,255,.26);
+    }
+
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(91,182,255,.96), rgba(158,214,255,.60));
+      color: var(--navy);
+      border: 1px solid rgba(158,214,255,.30);
+    }
+
+    .btn-primary:hover{
+      background: linear-gradient(135deg, rgba(91,182,255,1), rgba(158,214,255,.75));
+    }
+
+    .hero-visual{
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 12px;
+    }
+
+    .stat{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 14px;
+      color: rgba(255,255,255,.88);
+      box-shadow: 0 14px 34px rgba(0,0,0,.18);
+    }
+
+    .stat b{
+      display:block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .stat span{
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* Sections */
+    .section{
+      margin-top: 22px;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section-title{
+      margin: 0;
+      font-family: "Cairo", sans-serif;
+      font-weight: 1000;
+      font-size: 18px;
+      color: var(--navy);
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .section-title small{
+      font-weight: 700;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chips{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.75);
+      color: var(--navy);
+      font-weight: 900;
+      font-size: 12px;
+      cursor: pointer;
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .chip:hover{ transform: translateY(-1px); background: rgba(158,214,255,.18); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .card{
+      grid-column: span 3;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(11,21,48,.10);
+      transition: transform var(--transition);
+      position: relative;
+    }
+
+    .card:hover{ transform: translateY(-2px); }
+
+    .img{
+      height: 160px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(158,214,255,.55), transparent 55%),
+        radial-gradient(circle at 75% 35%, rgba(91,182,255,.38), transparent 60%),
+        linear-gradient(135deg, rgba(11,21,48,.85), rgba(15,33,70,.85));
+      position: relative;
+    }
+
+    .tag{
+      position:absolute;
+      top: 12px;
+      right: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(11,21,48,.10);
+      font-size: 12px;
+      font-weight: 1000;
+      color: var(--navy);
+    }
+
+    .card-body{
+      padding: 12px;
+    }
+
+    .name{
+      margin: 0 0 6px;
+      font-weight: 1000;
+      color: var(--navy);
+      font-size: 14px;
+    }
+
+    .meta{
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .row{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .price{
+      font-weight: 1000;
+      color: var(--navy);
+    }
+
+    .add{
+      border: 1px solid rgba(91,182,255,.30);
+      background: rgba(91,182,255,.18);
+      color: var(--navy);
+      padding: 9px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight: 1000;
+      transition: transform var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+
+    .add:hover{ transform: translateY(-1px); background: rgba(91,182,255,.26); }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .card{ grid-column: span 6; }
+    }
+    @media (max-width: 520px){
+      .card{ grid-column: span 12; }
+      .hero{ padding: 18px; }
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(11,21,48,.95);
+      color:#fff;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 12px 14px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.30);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .25s ease, transform .25s ease;
+      font-family: "Cairo", sans-serif;
+      z-index: 3000;
+      max-width: min(340px, 90vw);
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  {% include "header.html" %}
+
+  <main class="container">
+    <section class="hero" aria-label="واجهة المتجر الرئيسية">
+      <div class="hero-content">
+        <div class="kicker">💙 أوفر سايز… راحة وأناقة</div>
+        <h1 class="title">سايز</h1>
+        <p class="subtitle">
+          بلوڤرات وبناطيل أوفر سايز بخامات مريحة وقصّات واسعة.
+          اختر ستايلك بسهولة—وجرب العروض الحلوة اليوم.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#featured">✨ تسوّق الآن</a>
+          <a class="btn" href="#offers">🔥 شوف العروض</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="معلومات سريعة">
+        <div class="stat">
+          <b>توصيل سريع داخل الرياض</b>
+          <span>تنبيه: اربط تفاصيل الشحن لاحقًا حسب شركتك.</span>
+        </div>
+        <div class="stat">
+          <b>مقاسات واسعة ومريحة</b>
+          <span>قصّات أوفر سايز مناسبة للّبس اليومي والشتوي.</span>
+        </div>
+        <div class="stat">
+          <b>استبدال سهل</b>
+          <span>خيار الاستبدال/الاسترجاع حسب سياسة المتجر.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="section-head">
+        <h2 class="section-title">الأقسام <small>اختر اللي يناسبك</small></h2>
+        <div class="chips" role="tablist" aria-label="فلترة الأقسام">
+          <button class="chip" data-filter="all" type="button">الكل</button>
+          <button class="chip" data-filter="hoodie" type="button">بلوڤرات</button>
+          <button class="chip" data-filter="pants" type="button">بناطيل</button>
+          <button class="chip" data-filter="new" type="button">جديد</button>
+        </div>
+      </div>
+
+      <div class="grid" id="productsGrid">
+        <!-- بطاقة 1 -->
+        <article class="card" data-type="hoodie" data-badge="مميز">
+          <div class="img">
+            <span class="tag">مميز</span>
+          </div>
+          <div class="card-body">
+            <h3 class="name">بلوڤر أوفر سايز كلاسيك</h3>
+            <p class="meta">قماش دافئ — قصة واسعة — لون كحلي</p>
+            <div class="row">
+              <div class="price">149 ر.س</div>
+              <button class="add" type="button" data-name="بلوڤر أوفر سايز كلاسيك">إضافة للسلة</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- بطاقة 2 -->
+        <article class="card" data-type="pants" data-badge="الأكثر طلبًا">
+          <div class="img">
+            <span class="tag">الأكثر طلبًا</span>
+          </div>
+          <div class="card-body">
+            <h3 class="name">بنطال أوفر سايز مريح</h3>
+            <p class="meta">قماش مرن — جيوب — لون أزرق داكن</p>
+            <div class="row">
+              <div class="price">129 ر.س</div>
+              <button class="add" type="button" data-name="بنطال أوفر سايز مريح">إضافة للسلة</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- بطاقة 3 -->
+        <article class="card" data-type="hoodie new" data-badge="جديد">
+          <div class="img">
+            <span class="tag">جديد</span>
+          </div>
+          <div class="card-body">
+            <h3 class="name">هودي أوفر سايز (تدرج أزرق)</h3>
+            <p class="meta">ستايل عصري — نعومة عالية — تدرج أزرق فاتح</p>
+            <div class="row">
+              <div class="price">169 ر.س</div>
+              <button class="add" type="button" data-name="هودي أوفر سايز (تدرج أزرق)">إضافة للسلة</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- بطاقة 4 -->
+        <article class="card" data-type="pants new" data-badge="جديد">
+          <div class="img">
+            <span class="tag">جديد</span>
+          </div>
+          <div class="card-body">
+            <h3 class="name">بنطال كارغو أوفر سايز</h3>
+            <p class="meta">ستايل كارغو — جيوب جانبية — لون كحلي</p>
+            <div class="row">
+              <div class="price">159 ر.س</div>
+              <button class="add" type="button" data-name="بنطال كارغو أوفر سايز">إضافة للسلة</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="offers" class="section">
+      <div class="section-head">
+        <h2 class="section-title">العروض <small>خصومات محدودة</small></h2>
+      </div>
+
+      <div class="hero" style="min-height:auto; padding:18px; grid-template-columns:1fr; border-radius:18px;">
+        <div class="hero-content">
+          <div class="kicker">🔥 عرض اليوم</div>
+          <h2 class="title" style="font-size:34px; margin:10px 0 6px;">خصم 20% على قطعة ثانية</h2>
+          <p class="subtitle" style="max-width: 70ch;">
+            اختر بلوڤر + بنطال أو أي قطعتين من نفس القسم، وفعّل الخصم عند الدفع.
+            (اربطه لاحقًا مع نظام الطلبات في Django).
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#categories">ابدأ التسوق</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section" style="margin-bottom: 30px;">
+      <div class="section-head">
+        <h2 class="section-title">أسئلة سريعة <small>قبل ما تطلب</small></h2>
+      </div>
+
+      <div class="grid">
+        <article class="card" style="grid-column: span 6;">
+          <div class="card-body">
+            <h3 class="name">كيف أعرف المقاس المناسب؟</h3>
+            <p class="meta">اكتب “مقاسات” داخل صفحة المنتج لاحقًا، أو ضيف جدول مقاسات لكل قطعة.</p>
+          </div>
+        </article>
+        <article class="card" style="grid-column: span 6;">
+          <div class="card-body">
+            <h3 class="name">هل فيه توصيل داخل الرياض؟</h3>
+            <p class="meta">نعم، وتقدر تربط شركة الشحن/التوصيل حسب خياراتك.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  {% include "footer.html" %}
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function(){
+      const chips = document.querySelectorAll(".chip");
+      const cards = document.querySelectorAll("#productsGrid .card");
+      const toast = document.getElementById("toast");
+
+      function showToast(msg){
+        if(!toast) return;
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(window.__t);
+        window.__t = setTimeout(()=> toast.classList.remove("show"), 1800);
+      }
+
+      chips.forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const f = btn.getAttribute("data-filter");
+          cards.forEach(c=>{
+            const type = (c.getAttribute("data-type") || "");
+            const ok = (f === "all") || type.includes(f);
+            c.style.display = ok ? "" : "none";
+          });
+          showToast("تم تطبيق الفلتر ✅");
+        });
+      });
+
+      document.querySelectorAll(".add").forEach(b=>{
+        b.addEventListener("click", ()=>{
+          const name = b.getAttribute("data-name") || "منتج";
+          showToast(`تمت إضافة "${name}" للسلة 🛒`);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
