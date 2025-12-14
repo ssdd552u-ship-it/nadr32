@@ -21,7 +21,15 @@ urlpatterns = [
     path("orders/", include("orders.urls")),
 ]
 
-# دعم ملفات media و static أثناء التطوير فقط
+# ============================
+# 📁 static & media (التطوير فقط)
+# ============================
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # ملفات الرفع (صور المنتجات…)
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )
+
+    # ❌ لا نضيف static هنا
+    # Django يخدم static تلقائيًا من STATICFILES_DIRS أثناء التطوير

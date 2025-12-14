@@ -1,9 +1,14 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 
-# تحميل المتغيرات من ملف .env
-load_dotenv()
+# ============================
+# 🔧 تحميل .env بشكل آمن
+# ============================
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 # ============================
 # 📁 المسار الأساسي
@@ -23,8 +28,6 @@ ALLOWED_HOSTS = [
     if h.strip()
 ]
 
-# (اختياري) لو عندك دومين/https ضيفه في .env مثل:
-# CSRF_TRUSTED_ORIGINS=https://example.com,https://www.example.com
 CSRF_TRUSTED_ORIGINS = [
     o.strip()
     for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
@@ -35,7 +38,6 @@ CSRF_TRUSTED_ORIGINS = [
 # 📦 التطبيقات
 # ============================
 INSTALLED_APPS = [
-    # Django Core
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -43,14 +45,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Local Apps (مشروع المتجر)
     "accounts",
     "catalog",
     "orders",
 ]
 
 # ============================
-# 👤 Custom User Model (مهم جدًا)
+# 👤 Custom User Model
 # ============================
 AUTH_USER_MODEL = "accounts.User"
 
@@ -60,10 +61,7 @@ AUTH_USER_MODEL = "accounts.User"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-
-    # مهم للغة العربية
     "django.middleware.locale.LocaleMiddleware",
-
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -77,14 +75,12 @@ MIDDLEWARE = [
 ROOT_URLCONF = "nader32.urls"
 
 # ============================
-# 🎨 القوالب (Templates)
+# 🎨 Templates
 # ============================
-TEMPLATES_DIR = BASE_DIR / "templates"
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [TEMPLATES_DIR],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -104,17 +100,17 @@ WSGI_APPLICATION = "nader32.wsgi.application"
 ASGI_APPLICATION = "nader32.asgi.application"
 
 # ============================
-# 🗄 قاعدة البيانات
+# 🗄 Database
 # ============================
 DATABASES = {
     "default": {
-        "ENGINE": os.getenv("DB_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.getenv("DB_NAME", str(BASE_DIR / "db.sqlite3")),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
 # ============================
-# 🔐 التحقق من كلمات المرور
+# 🔐 Password validation
 # ============================
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -124,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # ============================
-# 🌍 اللغة والوقت
+# 🌍 Language & Time
 # ============================
 LANGUAGE_CODE = "ar-sa"
 TIME_ZONE = "Asia/Riyadh"
@@ -137,75 +133,55 @@ LANGUAGES = [
     ("en", "English"),
 ]
 
-LOCALE_PATHS = [
-    BASE_DIR / "locale",
-]
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
 # ============================
-# 📁 الملفات الثابتة والإعلامية
+# 📁 Static & Media Files (المهم هنا)
 # ============================
-# ✅ لازم تبدأ بشرطة / عشان الروابط تطلع صحيحة
 STATIC_URL = "/static/"
 
-# ✅ تأكد أن المجلد موجود فعلاً: <project_root>/static
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "static",   # ← ملفاتك أثناء التطوير
 ]
 
-# ✅ للإنتاج (collectstatic)
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles"  # ← ناتج collectstatic
 
-# ✅ لازم تبدأ بشرطة /
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # ============================
-# 🔑 الإعدادات الافتراضية
+# 🔑 Defaults
 # ============================
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ============================
-# 🧱 إعدادات جلسات ورسائل (اختياري)
+# 🔐 Auth redirects
 # ============================
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 # ============================
-# 🧾 Logging (يساعدك جدًا بالتتبع)
+# 🧾 Logging
 # ============================
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {
-        "console": {"class": "logging.StreamHandler"},
-    },
-    "root": {
-        "handlers": ["console"],
-        "level": os.getenv("LOG_LEVEL", "INFO"),
-    },
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "root": {"handlers": ["console"], "level": "INFO"},
 }
 
 # ============================
-# 🔒 أمان إضافي للإنتاج
+# 🔒 Production Security
 # ============================
 if not DEBUG:
-    # كوكيز آمنة
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
-    # إعادة توجيه HTTPS
     SECURE_SSL_REDIRECT = True
-
-    # لو شغال خلف Proxy/Nginx (يمنع loop)
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-    # HSTS
-    SECURE_HSTS_SECONDS = int(os.getenv("SECURE_HSTS_SECONDS", "31536000"))
+    SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-
-    # Headers
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_REFERRER_POLICY = "same-origin"
     X_FRAME_OPTIONS = "DENY"
