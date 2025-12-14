@@ -1,283 +1,408 @@
-<!-- header.html -->
-<header class="site-header" dir="rtl" lang="ar">
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap");
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>سايز | متجر الأوفر سايز</title>
 
-    :root {
-      --navy: #0b1530;
-      --navy-2: #0f2146;
-      --blue: #5bb6ff;
-      --blue-2: #9ed6ff;
-      --offwhite: #f5f5f0;
-      --text: #0b1530;
-      --muted: rgba(11, 21, 48, 0.66);
-      --card: rgba(255, 255, 255, 0.8);
-      --border: rgba(11, 21, 48, 0.10);
-      --shadow: 0 20px 60px rgba(11, 21, 48, 0.18);
-      --shadow-soft: 0 10px 30px rgba(11, 21, 48, 0.12);
+  <!-- خط رقعة (Google Font قريب من الرقعة) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg: #FFF8EE;            /* كريمي فاتح */
+      --white: #ffffff;
+      --blue-1: #EAF6FF;        /* أزرق فاتح جداً */
+      --blue-2: #BFE6FF;        /* أزرق فاتح */
+      --blue-3: #57B6FF;        /* أزرق أغمق شوي */
+      --text: #0F172A;
+      --muted: #5B6476;
+      --border: rgba(15, 23, 42, 0.10);
+      --shadow: 0 12px 30px rgba(15,23,42,.10);
       --radius: 18px;
-      --radius-lg: 26px;
-      --transition: 0.25s ease;
+      --radius-sm: 14px;
+      --transition: .25s ease;
     }
 
-    .site-header {
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      background: radial-gradient(1200px 500px at 90% -10%, rgba(87,182,255,.22), transparent 55%),
+                  radial-gradient(900px 400px at 10% 0%, rgba(191,230,255,.30), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    /* Top Notice */
+    .top-notice{
+      background: linear-gradient(90deg, var(--blue-1), var(--white));
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      font-size: 14px;
+      color: var(--muted);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+    .top-notice b{ color: var(--text); }
+
+    /* Header */
+    .site-header{
       position: sticky;
       top: 0;
-      z-index: 2000;
-      background: linear-gradient(135deg, rgba(11, 21, 48, 0.98), rgba(15, 33, 70, 0.98));
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 50;
       backdrop-filter: blur(10px);
+      background: rgba(255,255,255,.72);
+      border-bottom: 1px solid var(--border);
     }
 
-    .header-wrap {
+    .header-inner{
       max-width: 1200px;
       margin: 0 auto;
       padding: 14px 16px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 12px;
+      display:flex;
+      align-items:center;
+      gap: 14px;
     }
 
-    /* Brand */
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: #fff;
-      width: fit-content;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:inherit;
+      min-width: 180px;
     }
 
-    .brand-badge {
-      width: 42px;
-      height: 42px;
+    .brand-badge{
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
-      background: radial-gradient(circle at top, rgba(158, 214, 255, 0.95), rgba(91, 182, 255, 0.25));
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 10px 25px rgba(91, 182, 255, 0.20);
+      background: linear-gradient(135deg, var(--blue-2), var(--white));
+      box-shadow: 0 10px 22px rgba(87,182,255,.22);
+      border: 1px solid rgba(87,182,255,.25);
+      display:grid;
+      place-items:center;
       position: relative;
-      overflow: hidden;
+      overflow:hidden;
+    }
+    .brand-badge::after{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background: radial-gradient(circle, rgba(255,255,255,.9), transparent 55%);
+      transform: rotate(15deg);
     }
 
-    .brand-badge::after {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.22), transparent);
-      transform: rotate(25deg);
-      animation: shine 6s linear infinite;
-    }
-
-    @keyframes shine {
-      0% { transform: translateX(-40%) rotate(25deg); opacity: 0; }
-      20% { opacity: 1; }
-      60% { transform: translateX(60%) rotate(25deg); opacity: 0; }
-      100% { opacity: 0; }
-    }
-
-    .brand-title {
+    .brand-name{
       font-family: "Aref Ruqaa", serif;
-      font-weight: 700;
-      letter-spacing: 0.5px;
       font-size: 28px;
       line-height: 1;
-      color: #fff;
+      letter-spacing: .5px;
+      font-weight: 700;
     }
 
-    .brand-sub {
-      font-family: "Cairo", sans-serif;
+    .brand-tag{
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.70);
+      color: var(--muted);
       margin-top: 2px;
     }
 
-    /* Center nav */
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .nav a {
-      font-family: "Cairo", sans-serif;
-      color: rgba(255, 255, 255, 0.86);
-      text-decoration: none;
-      padding: 10px 12px;
-      border-radius: 12px;
-      transition: background var(--transition), transform var(--transition);
-      white-space: nowrap;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .nav a:hover {
-      background: rgba(158, 214, 255, 0.12);
-      transform: translateY(-1px);
-    }
-
-    /* Right actions */
-    .actions {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .search {
-      position: relative;
-      width: min(320px, 100%);
-    }
-
-    .search input {
-      width: 100%;
-      padding: 10px 12px 10px 42px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      outline: none;
-      font-family: "Cairo", sans-serif;
-      transition: border var(--transition), background var(--transition);
-    }
-
-    .search input::placeholder { color: rgba(255, 255, 255, 0.58); }
-
-    .search input:focus {
-      border-color: rgba(158, 214, 255, 0.35);
-      background: rgba(255, 255, 255, 0.10);
-    }
-
-    .search .icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0.85;
-      font-size: 16px;
-    }
-
-    .btn {
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      padding: 10px 12px;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: transform var(--transition), background var(--transition), border var(--transition);
-      font-family: "Cairo", sans-serif;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
+    /* Nav */
+    .nav{
+      display:flex;
+      align-items:center;
       gap: 8px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .nav a{
+      text-decoration:none;
+      color: var(--text);
+      font-size: 14px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      transition: var(--transition);
+    }
+    .nav a:hover{
+      background: linear-gradient(135deg, rgba(191,230,255,.55), rgba(255,255,255,.65));
+      box-shadow: 0 10px 18px rgba(15,23,42,.06);
+    }
+
+    /* Search */
+    .search-wrap{
+      flex: 1;
+      display:flex;
+      justify-content: center;
+    }
+    .search{
+      width: min(520px, 100%);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.85);
+      transition: var(--transition);
+    }
+    .search:focus-within{
+      box-shadow: 0 0 0 4px rgba(87,182,255,.18);
+      border-color: rgba(87,182,255,.35);
+      background: #fff;
+    }
+    .search input{
+      border:0;
+      outline:0;
+      width:100%;
+      font-size: 14px;
+      background: transparent;
+      color: var(--text);
+    }
+    .search button{
+      border:0;
+      cursor:pointer;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--blue-2), var(--blue-1));
+      color: var(--text);
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    .search button:hover{ transform: translateY(-1px); }
+
+    /* Actions */
+    .actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      justify-content: flex-end;
+      min-width: 210px;
+    }
+    .icon-btn{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.9);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      transition: var(--transition);
+      position: relative;
+    }
+    .icon-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(15,23,42,.08);
+    }
+
+    .badge{
+      position:absolute;
+      top: -6px;
+      left: -6px;
+      background: linear-gradient(135deg, var(--blue-3), var(--blue-2));
+      color: #06223a;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(87,182,255,.35);
+    }
+
+    .primary-btn{
+      border:0;
+      cursor:pointer;
+      padding: 11px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      background: linear-gradient(135deg, rgba(87,182,255,.35), rgba(255,255,255,.95));
+      border: 1px solid rgba(87,182,255,.35);
+      transition: var(--transition);
       white-space: nowrap;
     }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      background: rgba(158, 214, 255, 0.12);
-      border-color: rgba(158, 214, 255, 0.25);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, rgba(91, 182, 255, 0.92), rgba(158, 214, 255, 0.55));
-      border: 1px solid rgba(158, 214, 255, 0.32);
-      color: #0b1530;
-    }
-
-    .btn-primary:hover {
-      background: linear-gradient(135deg, rgba(91, 182, 255, 1), rgba(158, 214, 255, 0.70));
-    }
+    .primary-btn:hover{ transform: translateY(-1px); box-shadow: 0 12px 22px rgba(15,23,42,.08); }
 
     /* Mobile */
-    .menu-toggle {
-      display: none;
+    .hamburger{ display:none; }
+    @media (max-width: 980px){
+      .nav{ display:none; }
+      .search-wrap{ flex: 1; }
+      .actions{ min-width: auto; }
+      .hamburger{ display:grid; }
+    }
+    @media (max-width: 620px){
+      .brand-name{ font-size: 24px; }
+      .brand{ min-width: unset; }
+      .primary-btn{ display:none; }
     }
 
-    @media (max-width: 980px) {
-      .header-wrap {
-        grid-template-columns: 1fr auto;
-        grid-template-areas:
-          "brand actions"
-          "nav nav";
-      }
-
-      .brand { grid-area: brand; }
-      .actions { grid-area: actions; }
-      .nav { grid-area: nav; justify-content: flex-start; overflow-x: auto; padding-bottom: 6px; }
-
-      .search { width: min(520px, 100%); }
+    /* Drawer */
+    .drawer-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      z-index: 80;
+    }
+    .drawer{
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(360px, 92vw);
+      height: 100%;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border-left: 1px solid var(--border);
+      transform: translateX(102%);
+      transition: var(--transition);
+      z-index: 90;
+      padding: 16px;
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .drawer h3{
+      margin: 0;
+      font-family: "Aref Ruqaa", serif;
+      font-size: 26px;
+    }
+    .drawer a{
+      text-decoration:none;
+      color: var(--text);
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      background: linear-gradient(135deg, rgba(191,230,255,.30), rgba(255,255,255,.85));
+    }
+    .drawer a:hover{
+      border-color: rgba(87,182,255,.35);
+      transform: translateY(-1px);
+    }
+    .drawer .close{
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 14px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 800;
+      align-self: flex-start;
     }
 
-    @media (max-width: 640px) {
-      .brand-title { font-size: 26px; }
-      .brand-sub { display: none; }
-      .search { width: 100%; }
-      .actions { gap: 8px; }
-      .nav a { padding: 10px 10px; font-size: 13px; }
+    .drawer-open .drawer-backdrop{
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .drawer-open .drawer{
+      transform: translateX(0);
     }
   </style>
+</head>
 
-  <div class="header-wrap">
-    <a class="brand" href="/" aria-label="الذهاب للصفحة الرئيسية">
-      <span class="brand-badge" aria-hidden="true"></span>
-      <span>
-        <div class="brand-title">سايز</div>
-        <div class="brand-sub">بلوڤرات وبناطيل أوفر سايز</div>
-      </span>
-    </a>
-
-    <nav class="nav" aria-label="روابط التنقل">
-      <a href="#featured">المميّزة</a>
-      <a href="#categories">الأقسام</a>
-      <a href="#new">جديدنا</a>
-      <a href="#offers">العروض</a>
-      <a href="#faq">الأسئلة</a>
-    </nav>
-
-    <div class="actions">
-      <div class="search">
-        <span class="icon" aria-hidden="true">🔎</span>
-        <input id="siteSearch" type="search" placeholder="ابحث عن بلوفر أو بنطال..." autocomplete="off" />
-      </div>
-
-      <button class="btn" type="button" id="btnAccount" title="الحساب">
-        👤 <span>حسابي</span>
-      </button>
-
-      <button class="btn btn-primary" type="button" id="btnCart" title="السلة">
-        🛒 <span>السلة</span>
-      </button>
-    </div>
+<body>
+  <div class="top-notice">
+    ✨ توصيل سريع داخل الرياض — <b>خصم 10%</b> على أول طلب
   </div>
 
+  <header class="site-header">
+    <div class="header-inner">
+
+      <a class="brand" href="/">
+        <div class="brand-badge" aria-hidden="true"></div>
+        <div>
+          <div class="brand-name">سايز</div>
+          <div class="brand-tag">بلوڤرات وبناطيل أوفر سايز</div>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="روابط الموقع">
+        <a href="#new">الجديد</a>
+        <a href="#hoodies">البلوڤرات</a>
+        <a href="#pants">البناطيل</a>
+        <a href="#offers">العروض</a>
+        <a href="#faq">الأسئلة</a>
+      </nav>
+
+      <div class="search-wrap">
+        <form class="search" id="searchForm" action="#" method="get">
+          <span aria-hidden="true">🔎</span>
+          <input id="searchInput" name="q" type="search" placeholder="ابحث عن بلوفر، بنطلون، مقاس..." autocomplete="off" />
+          <button type="submit">بحث</button>
+        </form>
+      </div>
+
+      <div class="actions">
+        <button class="icon-btn hamburger" id="openDrawer" type="button" aria-label="فتح القائمة">☰</button>
+
+        <button class="icon-btn" type="button" aria-label="المفضلة">
+          ♥
+          <span class="badge" id="favCount">2</span>
+        </button>
+
+        <button class="icon-btn" type="button" aria-label="السلة">
+          🛒
+          <span class="badge" id="cartCount">3</span>
+        </button>
+
+        <button class="primary-btn" type="button">تسجيل الدخول</button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer" aria-label="قائمة الجوال">
+    <button class="close" id="closeDrawer" type="button">إغلاق ✕</button>
+    <h3>سايز</h3>
+    <a href="#new">الجديد</a>
+    <a href="#hoodies">البلوڤرات</a>
+    <a href="#pants">البناطيل</a>
+    <a href="#offers">العروض</a>
+    <a href="#faq">الأسئلة</a>
+  </aside>
+
   <script>
-    (function () {
-      const search = document.getElementById("siteSearch");
-      const btnCart = document.getElementById("btnCart");
-      const btnAccount = document.getElementById("btnAccount");
+    (function(){
+      const body = document.body;
+      const openBtn = document.getElementById('openDrawer');
+      const closeBtn = document.getElementById('closeDrawer');
+      const backdrop = document.getElementById('drawerBackdrop');
 
-      // بحث بسيط (عرض رسالة فقط - اربطه لاحقًا بصفحة/فلترة منتجات)
-      let t = null;
-      search?.addEventListener("input", () => {
-        clearTimeout(t);
-        t = setTimeout(() => {
-          const q = (search.value || "").trim();
-          if (!q) return;
-          // مثال: تغير الرابط لصفحة البحث عندك
-          // window.location.href = `/search/?q=${encodeURIComponent(q)}`;
-          console.log("بحث:", q);
-        }, 250);
-      });
+      function openDrawer(){
+        body.classList.add('drawer-open');
+      }
+      function closeDrawer(){
+        body.classList.remove('drawer-open');
+      }
 
-      btnCart?.addEventListener("click", () => {
-        alert("السلة: اربطها لاحقًا بصفحة السلة داخل Django ✅");
-      });
+      if(openBtn) openBtn.addEventListener('click', openDrawer);
+      if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
+      if(backdrop) backdrop.addEventListener('click', closeDrawer);
 
-      btnAccount?.addEventListener("click", () => {
-        alert("الحساب: اربطه لاحقًا بتسجيل الدخول/الحساب ✅");
-      });
+      // بحث (واجهة فقط)
+      const form = document.getElementById('searchForm');
+      const input = document.getElementById('searchInput');
+      if(form){
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          const q = (input?.value || '').trim();
+          if(!q){
+            alert('اكتب كلمة البحث أولاً 👀');
+            return;
+          }
+          // لاحقاً اربطه بصفحة نتائج بحث Django
+          alert('بحث: ' + q);
+        });
+      }
     })();
   </script>
-</header>

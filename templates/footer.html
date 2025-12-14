@@ -1,238 +1,171 @@
-<!-- footer.html -->
-<footer class="site-footer" dir="rtl" lang="ar">
   <style>
-    :root {
-      --navy: #0b1530;
-      --navy-2: #0f2146;
-      --blue: #5bb6ff;
-      --blue-2: #9ed6ff;
-      --offwhite: #f5f5f0;
-      --text: #0b1530;
-      --muted: rgba(11, 21, 48, 0.66);
-      --card: rgba(255, 255, 255, 0.85);
-      --border: rgba(11, 21, 48, 0.10);
-      --shadow: 0 20px 60px rgba(11, 21, 48, 0.18);
-      --radius: 18px;
-      --radius-lg: 26px;
-      --transition: 0.25s ease;
-    }
-
-    .site-footer {
+    .site-footer{
       margin-top: 60px;
-      background: linear-gradient(135deg, rgba(11, 21, 48, 0.98), rgba(15, 33, 70, 0.98));
-      color: rgba(255, 255, 255, 0.92);
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(234,246,255,.55));
     }
 
-    .footer-wrap {
+    .footer-inner{
       max-width: 1200px;
       margin: 0 auto;
-      padding: 34px 16px 18px;
-      display: grid;
+      padding: 26px 16px;
+      display:grid;
       grid-template-columns: 1.2fr 1fr 1fr 1fr;
-      gap: 18px;
+      gap: 16px;
     }
 
-    .footer-card {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      border-radius: 18px;
+    .footer-card{
+      background: rgba(255,255,255,.85);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       padding: 16px;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.20);
+      box-shadow: 0 10px 22px rgba(15,23,42,.06);
     }
 
-    .footer-brand {
+    .footer-brand{
       font-family: "Aref Ruqaa", serif;
-      font-weight: 700;
-      font-size: 26px;
-      margin: 0 0 6px;
-      color: #fff;
+      font-size: 28px;
+      margin: 0 0 6px 0;
     }
-
-    .footer-desc {
-      font-family: "Cairo", sans-serif;
+    .footer-desc{
       margin: 0;
-      color: rgba(255, 255, 255, 0.76);
-      line-height: 1.8;
+      color: var(--muted);
       font-size: 14px;
+      line-height: 1.9;
     }
 
-    .footer-title {
-      font-family: "Cairo", sans-serif;
-      font-weight: 800;
-      margin: 0 0 10px;
+    .footer-title{
+      margin: 0 0 10px 0;
       font-size: 14px;
-      letter-spacing: 0.2px;
-      color: rgba(158, 214, 255, 0.95);
+      font-weight: 900;
+      color: var(--text);
     }
 
-    .footer-links {
+    .footer-links{
       list-style: none;
       padding: 0;
       margin: 0;
-      display: grid;
+      display:flex;
+      flex-direction: column;
       gap: 8px;
-      font-family: "Cairo", sans-serif;
     }
-
-    .footer-links a {
-      color: rgba(255, 255, 255, 0.82);
-      text-decoration: none;
-      padding: 6px 8px;
+    .footer-links a{
+      text-decoration:none;
+      color: var(--muted);
+      font-size: 14px;
+      padding: 8px 10px;
       border-radius: 12px;
-      transition: background var(--transition), transform var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: fit-content;
+      transition: var(--transition);
+      background: transparent;
+      border: 1px solid transparent;
     }
-
-    .footer-links a:hover {
-      background: rgba(158, 214, 255, 0.12);
+    .footer-links a:hover{
+      color: var(--text);
+      background: linear-gradient(135deg, rgba(191,230,255,.35), rgba(255,255,255,.85));
+      border-color: rgba(87,182,255,.25);
       transform: translateY(-1px);
     }
 
-    .newsletter {
-      display: grid;
+    .social{
+      display:flex;
       gap: 10px;
-    }
-
-    .newsletter input {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      outline: none;
-      font-family: "Cairo", sans-serif;
-    }
-
-    .newsletter input::placeholder { color: rgba(255,255,255,0.55); }
-
-    .newsletter button {
-      border: 1px solid rgba(158, 214, 255, 0.28);
-      background: linear-gradient(135deg, rgba(91, 182, 255, 0.92), rgba(158, 214, 255, 0.55));
-      color: #0b1530;
-      padding: 10px 12px;
-      border-radius: 14px;
-      cursor: pointer;
-      font-family: "Cairo", sans-serif;
-      font-weight: 900;
-      transition: transform var(--transition);
-    }
-
-    .newsletter button:hover { transform: translateY(-1px); }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      max-width: 1200px;
-      margin: 0 auto;
-      color: rgba(255, 255, 255, 0.72);
-      font-family: "Cairo", sans-serif;
-      font-size: 13px;
       flex-wrap: wrap;
+      margin-top: 10px;
     }
-
-    .to-top {
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.06);
-      color: #fff;
-      padding: 8px 12px;
+    .social a{
+      width: 42px;
+      height: 42px;
       border-radius: 14px;
-      transition: transform var(--transition), background var(--transition);
-      font-weight: 800;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.9);
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      transition: var(--transition);
+      color: var(--text);
+      font-weight: 900;
     }
-
-    .to-top:hover {
+    .social a:hover{
+      box-shadow: 0 12px 22px rgba(15,23,42,.08);
       transform: translateY(-1px);
-      background: rgba(158, 214, 255, 0.12);
     }
 
-    @media (max-width: 980px) {
-      .footer-wrap { grid-template-columns: 1fr 1fr; }
+    .footer-bottom{
+      border-top: 1px solid var(--border);
+      padding: 14px 16px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 13px;
+      background: rgba(255,255,255,.65);
     }
-    @media (max-width: 520px) {
-      .footer-wrap { grid-template-columns: 1fr; }
+
+    @media (max-width: 980px){
+      .footer-inner{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px){
+      .footer-inner{ grid-template-columns: 1fr; }
     }
   </style>
 
-  <div class="footer-wrap">
-    <div class="footer-card">
-      <h3 class="footer-brand">سايز</h3>
-      <p class="footer-desc">
-        متجر متخصص في البلوڤرات والبناطيل الأوفر سايز — خامات مريحة، قصّات واسعة، وإطلالة مرتّبة.
-      </p>
-    </div>
+  <footer class="site-footer">
+    <div class="footer-inner">
 
-    <div class="footer-card">
-      <h4 class="footer-title">روابط سريعة</h4>
-      <ul class="footer-links">
-        <li><a href="#featured">⭐ المنتجات المميّزة</a></li>
-        <li><a href="#categories">🧩 الأقسام</a></li>
-        <li><a href="#offers">💙 العروض</a></li>
-        <li><a href="#faq">❓ الأسئلة</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-card">
-      <h4 class="footer-title">خدمة العملاء</h4>
-      <ul class="footer-links">
-        <li><a href="#">📦 الشحن والتوصيل</a></li>
-        <li><a href="#">🔁 الاستبدال والاسترجاع</a></li>
-        <li><a href="#">🔒 الخصوصية</a></li>
-        <li><a href="#">📞 تواصل معنا</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-card">
-      <h4 class="footer-title">اشترك في النشرة</h4>
-      <div class="newsletter">
-        <input id="newsletterEmail" type="email" placeholder="اكتب بريدك الإلكتروني" autocomplete="email" />
-        <button type="button" id="newsletterBtn">اشتراك</button>
-        <p class="footer-desc" style="margin:0; font-size:12px;">
-          توصلك عروضنا وجديدنا أول بأول ✨
+      <div class="footer-card">
+        <h3 class="footer-brand">سايز</h3>
+        <p class="footer-desc">
+          متجر متخصص في البلوڤرات والبناطيل الأوفر سايز.
+          جودة عالية، ألوان رايقة، وتجربة تسوّق خفيفة وسريعة.
         </p>
+        <div class="social" aria-label="روابط التواصل">
+          <a href="#" title="X" aria-label="X">X</a>
+          <a href="#" title="IG" aria-label="Instagram">IG</a>
+          <a href="#" title="TT" aria-label="TikTok">TT</a>
+          <a href="#" title="WA" aria-label="WhatsApp">WA</a>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="footer-bottom">
-    <div>© <span id="yearNow"></span> سايز — جميع الحقوق محفوظة</div>
-    <button class="to-top" id="toTopBtn" type="button">⬆ للأعلى</button>
-  </div>
+      <div class="footer-card">
+        <div class="footer-title">روابط سريعة</div>
+        <ul class="footer-links">
+          <li><a href="#new">الجديد</a></li>
+          <li><a href="#hoodies">البلوڤرات</a></li>
+          <li><a href="#pants">البناطيل</a></li>
+          <li><a href="#offers">العروض</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-card">
+        <div class="footer-title">خدمة العملاء</div>
+        <ul class="footer-links">
+          <li><a href="#faq">الأسئلة الشائعة</a></li>
+          <li><a href="#shipping">الشحن والتوصيل</a></li>
+          <li><a href="#returns">الاستبدال والاسترجاع</a></li>
+          <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-card">
+        <div class="footer-title">معلومات</div>
+        <ul class="footer-links">
+          <li><a href="#policy">سياسة الخصوصية</a></li>
+          <li><a href="#terms">الشروط والأحكام</a></li>
+          <li><a href="#sizes">دليل المقاسات</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © <span id="yearNow"></span> سايز — جميع الحقوق محفوظة
+    </div>
+  </footer>
 
   <script>
-    (function () {
-      const yearNow = document.getElementById("yearNow");
-      if (yearNow) yearNow.textContent = new Date().getFullYear();
-
-      const btn = document.getElementById("toTopBtn");
-      btn?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-
-      const newsletterBtn = document.getElementById("newsletterBtn");
-      const email = document.getElementById("newsletterEmail");
-
-      newsletterBtn?.addEventListener("click", () => {
-        const v = (email?.value || "").trim();
-
-        // تحقق بسيط (اربطه لاحقاً بباك اند Django)
-        const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-        if (!ok) {
-          alert("اكتب بريد صحيح بالله ✅");
-          email?.focus();
-          return;
-        }
-
-        alert("تم الاشتراك بنجاح ✨");
-        if (email) email.value = "";
-      });
+    (function(){
+      const y = document.getElementById('yearNow');
+      if(y) y.textContent = new Date().getFullYear();
     })();
   </script>
-</footer>
+
+</body>
+</html>

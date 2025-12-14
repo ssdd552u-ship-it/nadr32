@@ -1,7 +1,9 @@
 from django.urls import path
+from . import views
 
-app_name = 'catalog'
+app_name = "catalog"
 
 urlpatterns = [
-    # سيتم إضافة الصفحة الرئيسية والمنتجات لاحقًا
+    # الصفحة الرئيسية
+    path("", views.home, name="home"),
 ]
