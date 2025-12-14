@@ -9,22 +9,19 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # لوحة تحكم Django
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
 
     # تطبيق الحسابات (تسجيل – دخول – حسابي)
-    path('accounts/', include('accounts.urls')),
+    path("accounts/", include("accounts.urls")),
 
     # المتجر (الصفحة الرئيسية – المنتجات – السلة)
-    path('', include('catalog.urls')),
+    path("", include("catalog.urls")),
 
     # الطلبات (Checkout – الدفع – الطلبات)
-    path('orders/', include('orders.urls')),
+    path("orders/", include("orders.urls")),
 ]
 
-
-# دعم ملفات media أثناء التطوير فقط
+# دعم ملفات media و static أثناء التطوير فقط
 if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL,
-        document_root=settings.MEDIA_ROOT
-    )
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
