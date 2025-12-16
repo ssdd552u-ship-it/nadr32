@@ -28,15 +28,11 @@
         }
         .message {
             margin-top: 15px;
-            font-size: 14px;
             text-align: center;
+            font-size: 14px;
         }
-        .error {
-            color: red;
-        }
-        .success {
-            color: green;
-        }
+        .error { color: red; }
+        .success { color: green; }
     </style>
 </head>
 <body>
@@ -52,11 +48,13 @@
     </form>
 
     {% if messages %}
-        {% with message=messages|last %}
-            <p class="message {{ message.tags }}">
-                {{ message }}
-            </p>
-        {% endwith %}
+        {% for message in messages %}
+            {% if forloop.last %}
+                <p class="message {{ message.tags }}">
+                    {{ message }}
+                </p>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 </div>
 
