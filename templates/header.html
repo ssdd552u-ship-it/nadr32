@@ -168,9 +168,14 @@
         {% if user.is_authenticated %}
           <span class="welcome">مرحباً، {{ user.username }}</span>
 
-          <form method="post" action="{% url 'accounts:logout' %}">
+          <!-- زر تسجيل الخروج مع تأكيد -->
+          <form method="post"
+                action="{% url 'accounts:logout' %}"
+                onsubmit="return confirm('هل أنت متأكد من تسجيل الخروج؟');">
             {% csrf_token %}
-            <button type="submit" class="primary-btn">تسجيل الخروج</button>
+            <button type="submit" class="primary-btn">
+              تسجيل الخروج
+            </button>
           </form>
 
         {% else %}
