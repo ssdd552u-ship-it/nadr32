@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إنشاء حساب</title>
+    <style>
+        body {
+            font-family: Tahoma;
+            background: #f5f5f0;
+        }
+        .box {
+            width: 400px;
+            margin: 80px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        input, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+        }
+        button {
+            background: #2c5aa0;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>إنشاء حساب جديد</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="اسم المستخدم" required>
+        <input type="email" name="email" placeholder="البريد الإلكتروني">
+        <input type="password" name="password1" placeholder="كلمة المرور" required>
+        <input type="password" name="password2" placeholder="تأكيد كلمة المرور" required>
+        <button type="submit">تسجيل</button>
+    </form>
+
+    {% for message in messages %}
+        <p style="color:red">{{ message }}</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
