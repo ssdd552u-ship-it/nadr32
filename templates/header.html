@@ -100,24 +100,33 @@
     }
 
     .primary-btn{
-      text-decoration:none;
+      background:linear-gradient(135deg,rgba(87,182,255,.35),#fff);
+      border:1px solid rgba(87,182,255,.35);
       padding:10px 14px;
       border-radius:999px;
       font-weight:800;
-      background:linear-gradient(135deg,rgba(87,182,255,.35),#fff);
-      border:1px solid rgba(87,182,255,.35);
       color:var(--text);
+      text-decoration:none;
+      cursor:pointer;
       transition:var(--transition);
       white-space:nowrap;
     }
-    .primary-btn:hover{
-      transform:translateY(-1px);
-    }
+    .primary-btn:hover{transform:translateY(-1px)}
 
     .auth-btns{
       display:flex;
       gap:6px;
+      align-items:center;
     }
+
+    .welcome{
+      font-size:14px;
+      color:var(--muted);
+      margin-left:6px;
+      white-space:nowrap;
+    }
+
+    form{margin:0}
   </style>
 </head>
 
@@ -152,11 +161,23 @@
       </form>
     </div>
 
-    <!-- 🔐 أزرار الحساب -->
+    <!-- 🔐 حساب المستخدم -->
     <div class="actions">
       <div class="auth-btns">
-        <a href="{% url 'accounts:login' %}" class="primary-btn">تسجيل الدخول</a>
-        <a href="{% url 'accounts:register' %}" class="primary-btn">إنشاء حساب</a>
+
+        {% if user.is_authenticated %}
+          <span class="welcome">مرحباً، {{ user.username }}</span>
+
+          <form method="post" action="{% url 'accounts:logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="primary-btn">تسجيل الخروج</button>
+          </form>
+
+        {% else %}
+          <a href="{% url 'accounts:login' %}" class="primary-btn">تسجيل الدخول</a>
+          <a href="{% url 'accounts:register' %}" class="primary-btn">إنشاء حساب</a>
+        {% endif %}
+
       </div>
     </div>
 

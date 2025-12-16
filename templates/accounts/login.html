@@ -24,6 +24,18 @@
             background: #1a2947;
             color: white;
             border: none;
+            cursor: pointer;
+        }
+        .message {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
         }
     </style>
 </head>
@@ -39,9 +51,13 @@
         <button type="submit">دخول</button>
     </form>
 
-    {% for message in messages %}
-        <p style="color:red">{{ message }}</p>
-    {% endfor %}
+    {% if messages %}
+        {% with message=messages|last %}
+            <p class="message {{ message.tags }}">
+                {{ message }}
+            </p>
+        {% endwith %}
+    {% endif %}
 </div>
 
 </body>
