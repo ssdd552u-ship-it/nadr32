@@ -22,6 +22,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key-change-in-production")
 
 DEBUG = os.getenv("DEBUG", "True").strip().lower() == "true"
 
+DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
+
 ALLOWED_HOSTS = [
     h.strip()
     for h in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
@@ -102,12 +104,28 @@ ASGI_APPLICATION = "nader32.asgi.application"
 # ============================
 # 🗄 Database
 # ============================
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DJANGO_ENV == "production":
+    DATABASES = {
+        "default": {
+            "ENGINE": os.getenv("DB_ENGINE"),
+            "NAME": os.getenv("DB_NAME"),
+            "USER": os.getenv("DB_USER"),
+            "PASSWORD": os.getenv("DB_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT"),
+            "CONN_MAX_AGE": 60,
+            "OPTIONS": {
+                "sslmode": "require",
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # ============================
 # 🔐 Password validation
@@ -136,15 +154,15 @@ LANGUAGES = [
 LOCALE_PATHS = [BASE_DIR / "locale"]
 
 # ============================
-# 📁 Static & Media Files (المهم هنا)
+# 📁 Static & Media
 # ============================
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",   # ← ملفاتك أثناء التطوير
+    BASE_DIR / "static",
 ]
 
-STATIC_ROOT = BASE_DIR / "staticfiles"  # ← ناتج collectstatic
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -167,16 +185,21 @@ LOGOUT_REDIRECT_URL = "home"
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {"console": {"class": "logging.StreamHandler"}},
-    "root": {"handlers": ["console"], "level": "INFO"},
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
 }
 
 # ============================
 # 🔒 Production Security
 # ============================
 if not DEBUG:
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SECURE_HSTS_SECONDS = 31536000
@@ -185,3 +208,6 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     SECURE_REFERRER_POLICY = "same-origin"
     X_FRAME_OPTIONS = "DENY"
+
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
