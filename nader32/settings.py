@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 
 # ============================
-# 🔧 تحميل .env بشكل آمن
+# 🔧 تحميل .env (محلي فقط)
 # ============================
 try:
     from dotenv import load_dotenv
@@ -18,22 +18,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ============================
 # 🔐 الأمان (Security)
 # ============================
-SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key-change-in-production")
+SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-secret-key-change-in-production")
 
-DEBUG = os.getenv("DEBUG", "True").strip().lower() == "true"
+DEBUG = os.environ.get("DEBUG") == "True"
 
-DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
+DJANGO_ENV = os.environ.get("DJANGO_ENV", "development")
 
 ALLOWED_HOSTS = [
-    h.strip()
-    for h in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-    if h.strip()
+    host.strip()
+    for host in os.environ.get("ALLOWED_HOSTS", "").split(",")
+    if host.strip()
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    o.strip()
-    for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
-    if o.strip()
+    origin.strip()
+    for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")
+    if origin.strip()
 ]
 
 # ============================
@@ -62,6 +62,7 @@ AUTH_USER_MODEL = "accounts.User"
 # ============================
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # مهم للـ static
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -107,16 +108,14 @@ ASGI_APPLICATION = "nader32.asgi.application"
 if DJANGO_ENV == "production":
     DATABASES = {
         "default": {
-            "ENGINE": os.getenv("DB_ENGINE"),
-            "NAME": os.getenv("DB_NAME"),
-            "USER": os.getenv("DB_USER"),
-            "PASSWORD": os.getenv("DB_PASSWORD"),
-            "HOST": os.getenv("DB_HOST"),
-            "PORT": os.getenv("DB_PORT"),
+            "ENGINE": os.environ.get("DB_ENGINE"),
+            "NAME": os.environ.get("DB_NAME"),
+            "USER": os.environ.get("DB_USER"),
+            "PASSWORD": os.environ.get("DB_PASSWORD"),
+            "HOST": os.environ.get("DB_HOST"),
+            "PORT": os.environ.get("DB_PORT"),
             "CONN_MAX_AGE": 60,
-            "OPTIONS": {
-                "sslmode": "require",
-            },
+            "OPTIONS": {"sslmode": "require"},
         }
     }
 else:
@@ -157,12 +156,13 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 # 📁 Static & Media
 # ============================
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -186,9 +186,7 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-        },
+        "console": {"class": "logging.StreamHandler"},
     },
     "root": {
         "handlers": ["console"],
